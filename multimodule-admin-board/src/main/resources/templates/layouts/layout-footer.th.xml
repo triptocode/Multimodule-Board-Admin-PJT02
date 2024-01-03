@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<thlogic>
+  <attr sel="#footer-link" th:href="@{https://github.com/triptocode/Multimodule-Board-Admin-PJT}" th:text="'Tech Platform- GitHub'" />
+  <attr sel="#fastcampus-link" th:href="@{https://github.com/triptocode//}" th:text="'Github-Main'" />
+</thlogic>

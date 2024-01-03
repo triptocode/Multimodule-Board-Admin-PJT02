@@ -1,0 +1,96 @@
+debug: false
+management.endpoints.web.exposure.include: "*"
+
+logging:
+  level:
+    com.tenprj.multimoduleadminboard: debug
+    org.springframework.web.servlet: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+server.port: 8081
+
+spring:
+  devtools.livereload.port: 35730
+  datasource:
+    url: ${LOCAL_DB_URL}
+    username: ${LOCAL_DB_USERNAME}
+    password: ${LOCAL_DB_PASSWORD}
+
+  jpa:
+    open-in-view: false
+    defer-datasource-initialization: true
+    hibernate.ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+      hibernate.default_batch_fetch_size: 100
+  sql.init.mode: always
+#  data.rest:
+#    base-path: /api
+#    detection-strategy: annotated
+  thymeleaf3.decoupled-logic: true
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ${KAKAO_OAUTH_CLIENT_ID}
+            client-secret: ${KAKAO_OAUTH_CLIENT_SECRET}
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/kakao"
+            client-authentication-method: POST
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
+project.board.url: http://localhost:8080
+---
+
+
+
+##spring:
+## config.activate.on-profile: heroku
+## datasource:
+## url: ${JAWSDB_URL}
+### driver-class-name: com.mysql.cj.jdbc.Driver
+## jpa.hibernate.ddl-auto: create
+## sql.init.mode: always # always로 하면 테스트외에 로컬에도 테스트데비 data.sql 파일 쿼리 사용하겠다!
+#
+#---
+
+
+spring:
+  ## 첫번째 방식
+  config.activate.on-profile: test
+  datasource.url: jdbc:h2:mem:testdb
+  ##  하단은 추가
+  #  h2:
+  #    console:
+  #      enabled: true
+  #      path: /h2-consle
+  #    datasource:
+  #      driver-class-name: org.h2.Driver
+  #      url: jdbc:h2~/test
+  #      username: sa
+  #      password: P@ssw0rd
+
+##  #수정 - 세번째 방식
+#  config.activate.on-profile: test
+#  datasource:
+#    url: jdbc:h2:mem:admin;mode=mysql
+#    driverClassName: org.h2.Driver
+
+##  #수정 - # 두번째 방식
+#  config.activate.on-profile: testdb
+#  datasource:
+#    url: jdbc:h2:mem:admin;mode=mysql
+#    driverClassName: org.h2.Driver
+#  sql.init.mode: always
+#  test.database.replace: none
+
+
+
+
